@@ -1,0 +1,38 @@
+[
+  {
+    "id": "001",
+    "report": "PLFS Monthly Bulletin June 2025",
+    "period": "June 2025",
+    "status_type": "Current Weekly Status (CWS)",
+    "state": "All India",
+    "area": "Rural + Urban",
+    "gender": "Person",
+    "age_group": "15 years and above",
+    "indicator": "Labour Force Participation Rate (LFPR)",
+    "value": "54.2%"
+  },
+  {
+    "id": "002",
+    "report": "PLFS Monthly Bulletin June 2025",
+    "period": "June 2025",
+    "status_type": "Current Weekly Status (CWS)",
+    "state": "All India",
+    "area": "Rural + Urban",
+    "gender": "Person",
+    "age_group": "15 years and above",
+    "indicator": "Worker Population Ratio (WPR)",
+    "value": "51.2%"
+  },
+  {
+    "id": "003",
+    "report": "PLFS Monthly Bulletin June 2025",
+    "period": "June 2025",
+    "status_type": "Current Weekly Status (CWS)",
+    "state": "All India",
+    "area": "Rural + Urban",
+    "gender": "Person",
+    "age_group": "15 years and above",
+    "indicator": "Unemployment Rate (UR)",
+    "value": "5.6%"
+  }
+]

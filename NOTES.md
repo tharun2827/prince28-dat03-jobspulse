@@ -67,3 +67,103 @@ The table contains only 20 records, so a Sequential Scan is cheaper than using a
 
 When would it switch to the GIN index? (1 line)
 It may switch to the GIN index when the table grows larger and the query becomes selective enough that an index scan is cheaper than scanning the entire table.
+
+
+## D04 · Docker, Compose and tests
+
+### The image
+
+```text
+docker images jobspulse:dev
+                                                                                                          i Info →   U  In Use
+IMAGE           ID             DISK USAGE   CONTENT SIZE   EXTRA
+jobspulse:dev   e78d58bead90        300MB           70MB
+
+
+docker run --rm jobspulse:dev id
+
+uid=999(app) gid=999(app) groups=999(app)
+```
+
+- Size: 300 MB (target: under 400 MB)
+- First build: 37.3 s. After changing one line of code: 14.5 s.
+- Which step said CACHED, and why?
+- The `uv sync --locked --no-install-project` step shows CACHED because the dependencies haven't changed, so Docker reused the previously built dependency layer.
+
+### The stack
+
+```text
+docker compose ps -a
+
+NAME                  IMAGE                    COMMAND                  SERVICE   CREATED         STATUS                     PORTS
+jobspulse-api-1       jobspulse-api            "sh -c 'exec uvicorn…"   api       2 minutes ago   Up 2 minutes (healthy)     0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+jobspulse-db-1        pgvector/pgvector:pg17   "docker-entrypoint.s…"   db        2 minutes ago   Up 2 minutes (healthy)     0.0.0.0:5433->5432/tcp, [::]:5433->5432/tcp
+jobspulse-migrate-1   jobspulse-migrate        "sh -c 'alembic upgr…"   migrate   2 minutes ago   Exited (0) 2 minutes ago
+jobspulse-redis-1     redis:7-alpine           "docker-entrypoint.s…"   redis     2 minutes ago   Up 2 minutes (healthy)     0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp
+
+docker compose logs migrate   (first up, then after down + up)
+
+migrate-1  | INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+migrate-1  | INFO  [alembic.runtime.migration] Will assume transactional DDL.
+migrate-1  | records=20 inserted=0 updated=0 unchanged=20
+```
+
+### Breaking the database on purpose
+
+```text
+db stopped:  /health → {"status":"ok","app":"jobspulse","env":"local"}
+db stopped:  /ready  → {"status":"not_ready","checks":{"database":false}}
+db started:  /ready  → {"status":"ready","checks":{"database":true}}
+```
+
+Why should a load balancer stop sending traffic here but not restart the app?
+
+The load balancer should stop sending traffic because the database is unavailable, making the app temporarily not ready. It should not restart the app because the application is still running correctly and will recover when the database is available again.
+
+### Tests and coverage
+
+```text
+uv run poe test              → 16 passed in 0.37s
+uv run poe test-integration  → 7 passed in 3.83s
+coverage TOTAL, unit only    →
+
+============================================================================ tests coverage =============================================================================
+___________________________________________________________ coverage: platform win32, python 3.12.16-final-0 ____________________________________________________________
+
+Name                              Stmts   Miss Branch BrPart  Cover   Missing
+-----------------------------------------------------------------------------
+src\jobspulse\api\deps.py            25      9      0      0    64%   21-22, 26, 31-36
+src\jobspulse\api\middleware.py      21      3      0      0    86%   22-24
+src\jobspulse\config.py              22      1      0      0    95%   34
+src\jobspulse\db\repository.py       34     22     10      0    27%   16, 29-37, 42, 47-62, 65-66
+src\jobspulse\db\url.py              12      0      4      1    94%   10->12
+src\jobspulse\logging_setup.py       22      1      6      1    93%   27
+-----------------------------------------------------------------------------
+TOTAL                               254     36     26      2    83%
+
+10 files skipped due to complete coverage.
+16 passed, 7 skipped in 3.22s
+
+coverage TOTAL, with integration tests →
+
+============================================================================ tests coverage =============================================================================
+___________________________________________________________ coverage: platform win32, python 3.12.16-final-0 ____________________________________________________________
+
+Name                              Stmts   Miss Branch BrPart  Cover   Missing
+-----------------------------------------------------------------------------
+src\jobspulse\api\deps.py            25      2      0      0    92%   35-36
+src\jobspulse\api\middleware.py      21      3      0      0    86%   22-24
+src\jobspulse\db\repository.py       34      3     10      2    89%   32, 36, 66
+src\jobspulse\logging_setup.py       22      7      6      0    54%   16-28
+-----------------------------------------------------------------------------
+TOTAL                               254     15     26      2    92%
+
+12 files skipped due to complete coverage.
+23 passed in 7.38s
+
+```
+
+Two files or lines my coverage report says are never run, and whether they matter:
+
+Some lines in `logging_setup.py` and `store.py` are not covered by tests.
+They may contain optional logging or unused functionality, but should be tested if they are important to application behavior.

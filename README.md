@@ -2,7 +2,14 @@
 
 Answers employment and wage questions from MoSPI's Periodic Labour Force Survey reports and bulletins, by state, gender, age and area, with table citations.
 
-**Status:** Day 1 foundation (FastAPI skeleton, quality gates). Live URL from Day 5.
+[![CI](https://github.com/tharun2827/prince28-dat03-jobspulse/actions/workflows/ci.yml/badge.svg)](https://github.com/tharun2827/prince28-dat03-jobspulse/actions/workflows/ci.yml)
+[![Live](https://img.shields.io/website?url=https%3A%2F%2Fjobspulse.onrender.com%2Fhealth&label=live)](https://jobspulse.onrender.com/docs)
+[![Uptime (30 days)](https://img.shields.io/uptimerobot/ratio/m804748589-0e6f41ee9a01df93b3693898)](https://jobspulse.onrender.com/health)
+
+**Live:** https://jobspulse.onrender.com · [API docs](https://jobspulse.onrender.com/docs) · [health](https://jobspulse.onrender.com/health)
+
+
+**Status:** Week 1 complete · live at https://jobspulse.onrender.com
 
 ## Who it's for
 

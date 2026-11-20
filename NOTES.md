@@ -167,3 +167,36 @@ Two files or lines my coverage report says are never run, and whether they matte
 
 Some lines in `logging_setup.py` and `store.py` are not covered by tests.
 They may contain optional logging or unused functionality, but should be tested if they are important to application behavior.
+
+
+## D05 · CI/CD and going live
+
+- Live URL: https://jobspulse.onrender.com
+- CI run for pull request 1: https://github.com/tharun2827/prince28-dat03-jobspulse/actions (exact run link not identified)
+- First deploy that ran by itself: Not confirmed
+- Merge clicked at Not recorded → "Smoke test passed" at Not completed → lead time: Not available
+
+### Smoke test output from that CD run
+
+```text
+Deployment failed with HTTP 400 before the smoke test could run.
+Smoke test was skipped.
+```
+
+### Rollback drill
+
+- Rolled back to sha Not performed : started Not recorded, smoke passed Not recorded (Not applicable)
+- Rolled forward to sha Not performed : Not applicable
+- During the rollback, the database stayed on the newer schema. Why is that safe here?
+The newer database schema is safe only if it remains backward-compatible with the previous application version.
+This compatibility must be verified before considering the rollback safe.
+
+### Where my secrets live
+
+- Neon string: GitHub Secret DATABASE_URL + Render environment. Not in Git, not in the image.
+- Render deploy hook: GitHub Secret RENDER_DEPLOY_HOOK only.
+
+### Monitoring
+
+- UptimeRobot checks /health every 5 minutes; alerts go to my email.
+- One thing that would make my live app faster on its first request: Use an always-on Render instance to avoid cold starts and improve the first request response time.

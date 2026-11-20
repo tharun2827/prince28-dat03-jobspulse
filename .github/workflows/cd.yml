@@ -47,14 +47,12 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: uv run alembic upgrade head
 
-      - name: Tell Render to deploy this exact image
+      - name: Tell Render to deploy this exact commit
         env:
           HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
         run: |
-          IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}:sha-${SHA}"
-          ENCODED=$(python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1], safe=""))' "$IMAGE")
-          echo "Deploying $IMAGE"
-          curl --fail --silent --show-error -X POST "${HOOK}&imgURL=${ENCODED}"
+          echo "Deploying commit $SHA"
+          curl --fail --silent --show-error -X POST "${HOOK}&ref=${SHA}"
 
       - name: Smoke test the live URL
         run: uv run python scripts/smoke.py "${{ vars.LIVE_URL }}" --expect-version "${SHA}"

@@ -172,15 +172,19 @@ They may contain optional logging or unused functionality, but should be tested 
 ## D05 · CI/CD and going live
 
 - Live URL: https://jobspulse.onrender.com
-- CI run for pull request 1: https://github.com/tharun2827/prince28-dat03-jobspulse/actions (exact run link not identified)
-- First deploy that ran by itself: Not confirmed
-- Merge clicked at Not recorded → "Smoke test passed" at Not completed → lead time: Not available
+- CI run for pull request 1: https://github.com/tharun2827/prince28-dat03-jobspulse/actions
+- First deploy that ran by itself: https://github.com/tharun2827/prince28-dat03-jobspulse/actions/runs/
+- Merge clicked at 8:03→ "Smoke test passed" 8:04 → lead time: 1 min
 
 ### Smoke test output from that CD run
 
 ```text
-Deployment failed with HTTP 400 before the smoke test could run.
-Smoke test was skipped.
+
+ok /health -> 200, version 1ec9c4485c2cb38e8a65e6d57b1c7ed4ffc71326
+ok /ready -> 200 {'status': 'ready', 'checks': {'database': True}}
+ok /v1/documents?limit=1 -> 200
+Smoke test passed
+
 ```
 
 ### Rollback drill

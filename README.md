@@ -8,7 +8,6 @@ Answers employment and wage questions from MoSPI's Periodic Labour Force Survey 
 
 **Live:** https://jobspulse.onrender.com · [API docs](https://jobspulse.onrender.com/docs) · [health](https://jobspulse.onrender.com/health)
 
-
 **Status:** Week 1 complete · live at https://jobspulse.onrender.com
 
 ## Who it's for

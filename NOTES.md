@@ -189,11 +189,11 @@ Smoke test passed
 
 ### Rollback drill
 
-- Rolled back to sha Not performed : started Not recorded, smoke passed Not recorded (Not applicable)
-- Rolled forward to sha Not performed : Not applicable
+- Rolled back to sha 18505db6d2ee0d7e9fd009124c3df2bd6e735757 : started 9:10 AM, smoke passed 9:11 AM (approximately 1 min)
+- Rolled forward to sha 2414b8c123fa5cec25847828b3891044c73378b7 : 1 min
 - During the rollback, the database stayed on the newer schema. Why is that safe here?
-The newer database schema is safe only if it remains backward-compatible with the previous application version.
-This compatibility must be verified before considering the rollback safe.
+  The rollback changes only the application code, not the database schema.
+  The older application version is compatible with the newer backward-compatible database schema.
 
 ### Where my secrets live
 

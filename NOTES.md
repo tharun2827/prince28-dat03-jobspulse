@@ -204,3 +204,38 @@ Smoke test passed
 
 - UptimeRobot checks /health every 5 minutes; alerts go to my email.
 - One thing that would make my live app faster on its first request: Use an always-on Render instance to avoid cold starts and improve the first request response time.
+
+
+## D06 · Collecting the corpus
+
+- Start target: PLFS annual reports for 3 years
+- Collected today: 10 files, 4770 pages, 260.3 MB (from DATASET.md)
+- Doors used: Door 1: URL list using data/sources.csv
+
+### Licence check
+
+| Source | Licence or terms, in my words | May I show full text in answers? |
+| MoSPI | Public MoSPI publications. Cite report, table and period. | Full-text reuse permission is not confirmed. Use relevant answers with citations. |
+| Microdata | Source identified, but no documents collected from it yet. | Not applicable yet. |
+
+### robots.txt
+
+- Site: https://mospi.gov.in/ . Its robots.txt says: The robots.txt file could not be retrieved as readable text; the server returned the website HTML instead.
+- Was anything blocked for my bot? What did I do about it? No. 0 downloads were blocked. The fetcher was configured to respect robots.txt.
+
+### Kill and resume
+
+- Run 1: I pressed Ctrl+C after 4 files
+- Run 2: downloaded=4 skipped=6
+- Run 3: downloaded=0 skipped=10
+
+### Capacity (from docs/CAPACITY.md)
+
+- Tokens per page, measured: 665
+- Full corpus: 5.32 M tokens, 12239 chunks, embedding about Rs 116, vectors 50 MB
+- The number that surprised me most, and why: The estimated embedding cost is only Rs 116 for 8,000 pages.
+I was surprised because processing such a large dataset is very affordable.
+
+### One thing that went wrong today, and how I fixed it
+
+The first download run was interrupted after 10 seconds. I restarted the fetcher, and it downloaded the remaining 7 files while skipping 3 already downloaded files. On the third run, it skipped all 10 files. There were no partial files, and the resume test passed.

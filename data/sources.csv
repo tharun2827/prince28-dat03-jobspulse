@@ -1,0 +1,19 @@
+# Sources for JobsPulse. One row per file to download. Lines starting with # are notes.
+# Start target: PLFS annual reports for 3 years
+# Where to look:
+#   https://mospi.gov.in/
+#   https://microdata.gov.in/
+# Terms on my project card: Public MoSPI publications. Cite report, table and period.
+url,source,licence,title
+# Example row (delete it, then add 10 real document URLs below):
+
+"https://mospi.gov.in/sites/default/files/publication_reports/Annual%20Report%2C%20PLFS%202017-18_31052019.pdf?download=1",mospi,"Public MoSPI publication. Cite report, table and period.","PLFS Annual Report 2017-18"
+"https://mospi.gov.in/sites/default/files/publication_reports/Annual_Report_PLFS_2018_19_HL.pdf",mospi,"Public MoSPI publication. Cite report, table and period.","PLFS Annual Report 2018-19 Highlights"
+"https://mospi.gov.in/sites/default/files/publication_reports/Annual_Report_PLFS_2019_20F1.pdf",mospi,"Public MoSPI publication. Cite report, table and period.","PLFS Annual Report 2019-20"
+"https://mospi.gov.in/sites/default/files/publication_reports/Annual_Report_PLFS_2020%2021_0.pdf",mospi,"Public MoSPI publication. Cite report, table and period.","PLFS Annual Report 2020-21"
+"https://mospi.gov.in/sites/default/files/publication_reports/AnnualReportPLFS2021-22F1.pdf",mospi,"Public MoSPI publication. Cite report, table and period.","PLFS Annual Report 2021-22"
+"https://mospi.gov.in/sites/default/files/publication_reports/AR_PLFS_2022_23N.pdf",mospi,"Public MoSPI publication. Cite report, table and period.","PLFS Annual Report 2022-23"
+"https://mospi.gov.in/sites/default/files/publication_reports/AnnualReport_PLFS2023-24L2.pdf",mospi,"Public MoSPI publication. Cite report, table and period.","PLFS Annual Report 2023-24"
+"https://mospi.gov.in/sites/default/files/publication_reports/AnnualReport_2023-24.pdf",mospi,"Public MoSPI publication. Cite report, table and period.","MoSPI Annual Report 2023-24"
+"https://mospi.gov.in/sites/default/files/press_release/Press_note_AR_PLFS_2023_24_22092024.pdf",mospi,"Public MoSPI publication. Cite report, table and period.","PLFS 2023-24 Press Note"
+"https://mospi.gov.in/sites/default/files/publication_reports/Annual_Report_2024-25_R.pdf",mospi,"Public MoSPI publication. Cite report, table and period.","MoSPI Annual Report 2024-25"

@@ -245,16 +245,16 @@ The first download run was interrupted after 10 seconds. I restarted the fetcher
 <!-- parsers:start -->
 | File | Parsers (A / B) | Pages | A found | B found | Time (A / B) | Better, why |
 |---|---|---|---|---|---|---|
-| annual-report-2024-25-r-0b3e6b77.pdf | PyMuPDF / pypdf | - | FAILED: no_text_layer | FAILED: no_text_layer | 216.49 s / 201.52 s | |
-| annual-report-plfs-2019-20f1-69b67da0.pdf | PyMuPDF / pypdf | 721 | 2,527,975 chars, 1804 headings, 230 tables | 2,279,484 chars, 0 headings, 0 tables | 46.96 s / 160.11 s | |
-| annualreportplfs2021-22f1-13e1cf12.pdf | PyMuPDF / pypdf | 758 | 2,726,897 chars, 1799 headings, 275 tables | 2,337,986 chars, 2 headings, 0 tables | 42.60 s / 50.11 s | |
-| annual-report-plfs-2020-21-0-7338f625.pdf | PyMuPDF / pypdf | 754 | 2,622,392 chars, 1609 headings, 212 tables | 2,313,189 chars, 0 headings, 0 tables | 38.70 s / 47.04 s | |
-| annualreport-plfs2023-24l2-79e6f100.pdf | PyMuPDF / pypdf | 572 | 1,753,667 chars, 4413 headings, 135 tables | 1,526,468 chars, 0 headings, 0 tables | 30.76 s / 27.20 s | |
-| ar-plfs-2022-23n-04c5cd2e.pdf | PyMuPDF / pypdf | 435 | 1,402,875 chars, 3837 headings, 131 tables | 1,178,623 chars, 0 headings, 0 tables | 58.37 s / 21.83 s | |
-| annual-report-plfs-2018-19-hl-c37c1220.pdf | PyMuPDF / pypdf | 618 | 2,194,062 chars, 1105 headings, 206 tables | 1,906,645 chars, 0 headings, 0 tables | 20.01 s / 108.11 s | |
-| annual-report-plfs-2017-18-31052019-6173cf25.pdf | PyMuPDF / pypdf | 643 | 3,675,031 chars, 330 headings, 650 tables | 1,814,629 chars, 0 headings, 0 tables | 777.13 s / 123.00 s | |
-| annualreport-2023-24-5dd24e0d.pdf | PyMuPDF / pypdf | 116 | 242,742 chars, 249 headings, 31 tables | 228,027 chars, 1 headings, 0 tables | 28.71 s / 4.37 s | |
-| press-note-ar-plfs-2023-24-22092024-3136d6c4.pdf | PyMuPDF / pypdf | 10 | 74,027 chars, 33 headings, 12 tables | 16,755 chars, 0 headings, 0 tables | 1.09 s / 0.53 s | |
+| annual-report-2024-25-r-0b3e6b77.pdf | PyMuPDF / pypdf | - | FAILED: no_text_layer | FAILED: no_text_layer | 216.49 s / 201.52 s | Neither: both failed with no_text_layer; OCR is required. |
+| annual-report-plfs-2019-20f1-69b67da0.pdf | PyMuPDF / pypdf | 721 | 2,527,975 chars, 1804 headings, 230 tables | 2,279,484 chars, 0 headings, 0 tables | 46.96 s / 160.11 s | PyMuPDF: 2,527,975 chars, 1,804 headings and 230 tables; much faster (46.96s vs 160.11s). |
+| annualreportplfs2021-22f1-13e1cf12.pdf | PyMuPDF / pypdf | 758 | 2,726,897 chars, 1799 headings, 275 tables | 2,337,986 chars, 2 headings, 0 tables | 42.60 s / 50.11 s | PyMuPDF: 2,726,897 chars, 1,799 headings and 275 tables; faster (42.60s vs 50.11s). |
+| annual-report-plfs-2020-21-0-7338f625.pdf | PyMuPDF / pypdf | 754 | 2,622,392 chars, 1609 headings, 212 tables | 2,313,189 chars, 0 headings, 0 tables | 38.70 s / 47.04 s | PyMuPDF: more characters, 1,609 headings and 212 tables; faster (38.70s vs 47.04s). |
+| annualreport-plfs2023-24l2-79e6f100.pdf | PyMuPDF / pypdf | 572 | 1,753,667 chars, 4413 headings, 135 tables | 1,526,468 chars, 0 headings, 0 tables | 30.76 s / 27.20 s | PyMuPDF: 4,413 headings and 135 tables; slightly slower than pypdf. |
+| ar-plfs-2022-23n-04c5cd2e.pdf | PyMuPDF / pypdf | 435 | 1,402,875 chars, 3837 headings, 131 tables | 1,178,623 chars, 0 headings, 0 tables | 58.37 s / 21.83 s | PyMuPDF: 3,837 headings and 131 tables; better structure despite slower processing. |
+| annual-report-plfs-2018-19-hl-c37c1220.pdf | PyMuPDF / pypdf | 618 | 2,194,062 chars, 1105 headings, 206 tables | 1,906,645 chars, 0 headings, 0 tables | 20.01 s / 108.11 s | PyMuPDF: 1,105 headings and 206 tables; much faster (20.01s vs 108.11s). |
+| annual-report-plfs-2017-18-31052019-6173cf25.pdf | PyMuPDF / pypdf | 643 | 3,675,031 chars, 330 headings, 650 tables | 1,814,629 chars, 0 headings, 0 tables | 777.13 s / 123.00 s | PyMuPDF: 650 tables and 330 headings; pypdf is faster (123s vs 777.13s). |
+| annualreport-2023-24-5dd24e0d.pdf | PyMuPDF / pypdf | 116 | 242,742 chars, 249 headings, 31 tables | 228,027 chars, 1 headings, 0 tables | 28.71 s / 4.37 s | PyMuPDF: 249 headings and 31 tables; pypdf is faster but detects no tables. |
+| press-note-ar-plfs-2023-24-22092024-3136d6c4.pdf | PyMuPDF / pypdf | 10 | 74,027 chars, 33 headings, 12 tables | 16,755 chars, 0 headings, 0 tables | 1.09 s / 0.53 s | PyMuPDF: 33 headings and 12 tables; pypdf extracts fewer characters and detects no tables. |
 <!-- parsers:end -->
 
 ### Parsing stats

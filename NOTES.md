@@ -239,3 +239,48 @@ I was surprised because processing such a large dataset is very affordable.
 ### One thing that went wrong today, and how I fixed it
 
 The first download run was interrupted after 10 seconds. I restarted the fetcher, and it downloaded the remaining 7 files while skipping 3 already downloaded files. On the third run, it skipped all 10 files. There were no partial files, and the resume test passed.
+
+## D07 · Parser comparison
+
+<!-- parsers:start -->
+| File | Parsers (A / B) | Pages | A found | B found | Time (A / B) | Better, why |
+|---|---|---|---|---|---|---|
+| annual-report-2024-25-r-0b3e6b77.pdf | PyMuPDF / pypdf | - | FAILED: no_text_layer | FAILED: no_text_layer | 216.49 s / 201.52 s | |
+| annual-report-plfs-2019-20f1-69b67da0.pdf | PyMuPDF / pypdf | 721 | 2,527,975 chars, 1804 headings, 230 tables | 2,279,484 chars, 0 headings, 0 tables | 46.96 s / 160.11 s | |
+| annualreportplfs2021-22f1-13e1cf12.pdf | PyMuPDF / pypdf | 758 | 2,726,897 chars, 1799 headings, 275 tables | 2,337,986 chars, 2 headings, 0 tables | 42.60 s / 50.11 s | |
+| annual-report-plfs-2020-21-0-7338f625.pdf | PyMuPDF / pypdf | 754 | 2,622,392 chars, 1609 headings, 212 tables | 2,313,189 chars, 0 headings, 0 tables | 38.70 s / 47.04 s | |
+| annualreport-plfs2023-24l2-79e6f100.pdf | PyMuPDF / pypdf | 572 | 1,753,667 chars, 4413 headings, 135 tables | 1,526,468 chars, 0 headings, 0 tables | 30.76 s / 27.20 s | |
+| ar-plfs-2022-23n-04c5cd2e.pdf | PyMuPDF / pypdf | 435 | 1,402,875 chars, 3837 headings, 131 tables | 1,178,623 chars, 0 headings, 0 tables | 58.37 s / 21.83 s | |
+| annual-report-plfs-2018-19-hl-c37c1220.pdf | PyMuPDF / pypdf | 618 | 2,194,062 chars, 1105 headings, 206 tables | 1,906,645 chars, 0 headings, 0 tables | 20.01 s / 108.11 s | |
+| annual-report-plfs-2017-18-31052019-6173cf25.pdf | PyMuPDF / pypdf | 643 | 3,675,031 chars, 330 headings, 650 tables | 1,814,629 chars, 0 headings, 0 tables | 777.13 s / 123.00 s | |
+| annualreport-2023-24-5dd24e0d.pdf | PyMuPDF / pypdf | 116 | 242,742 chars, 249 headings, 31 tables | 228,027 chars, 1 headings, 0 tables | 28.71 s / 4.37 s | |
+| press-note-ar-plfs-2023-24-22092024-3136d6c4.pdf | PyMuPDF / pypdf | 10 | 74,027 chars, 33 headings, 12 tables | 16,755 chars, 0 headings, 0 tables | 1.09 s / 0.53 s | |
+<!-- parsers:end -->
+
+### Parsing stats
+
+- Files in the manifest: 10 · parsed: 9 · failed: 1 · pages in Postgres: 4,627
+- Parsing coverage: 90% of files
+
+### Failures by reason
+
+| Reason | Files | What I did |
+|---|---:|---|
+| no_text_layer | 1 | Identified as a scanned/image-based PDF; OCR is required |
+
+- The one I fixed: **None**. File `annual-report-2024-25-r-0b3e6b77.pdf`, reason `no_text_layer`, fix: Not fixed because the PDF contains image-based pages without a text layer; OCR is required.
+
+### What I saw when I read my parsed pages
+
+- A page where the heading path is right (document, page, path): MoSPI Annual Report 2023-24, page 112, Other Activities → Redressal of Public Grievances → Publications brought out during 2023-24 by Social Statistics Division.
+- Something that came out wrong (document, page, what): PLFS Annual Report 2019-20, page 2, Hindi characters were corrupted and mixed with English text.
+- A table: Markdown grid or loose text? (document, page): MoSPI Annual Report 2023-24, page 115, Markdown-like grid with fragmented rows and columns.
+
+### My parser choice
+
+- For PDFs I use **PyMuPDF** because it extracted more characters, headings and tables than pypdf. Across the 9 successfully parsed PDFs, PyMuPDF detected 1,882 tables in total, while pypdf detected zero tables.
+- A kind of document in my corpus that neither parser handles well: Scanned/image-based PDFs without a text layer.
+
+### One thing that went wrong today, and how I fixed it
+
+- One PDF could not be parsed because it was image-based and had no text layer. I identified the issue as `no_text_layer`. It remains unresolved because OCR is required for text extraction.

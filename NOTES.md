@@ -284,3 +284,40 @@ The first download run was interrupted after 10 seconds. I restarted the fetcher
 ### One thing that went wrong today, and how I fixed it
 
 - One PDF could not be parsed because it was image-based and had no text layer. I identified the issue as `no_text_layer`. It remains unresolved because OCR is required for text extraction.
+
+
+### D08 · LLM gateway
+
+- Primary: gemini-3.5-flash (Gemini) · fallback: openai/gpt-oss-20b (Groq)
+- First question on my laptop: first words after 7.05 s, total 9.71 s, tokens in 197 / out 87, cost Rs 0.0000
+- Same question on my live URL (second, awake request): first words after ___ s. Day 1 target: under 1.5 s
+
+### Tokens: English against Tamil
+
+| Message | tokens in |
+|---|---|
+| "Hi" (baseline: mostly my system prompt) | 173 |
+| The English sentence | 181 |
+| The same sentence in Tamil | 189 |
+
+- The Tamil message needs about 2 times the tokens of the English one.
+
+### What the model does without my documents
+
+- Question 6 ("How many jobs will Chennai IT companies add next year?"): Yes, it admitted it can't know. Its exact words: "I am not sure."
+- A detail it got wrong or invented (question → what it said → what is true): No invented figures observed.
+- The off-topic question: Yes, it declined in one sentence.
+
+### Fallback and circuit breaker
+
+- With the primary broken: provider Groq , fallback YES , first words after 4.23 s
+- The question at which "llm call gemini … error" stopped appearing in the log: number 4
+
+### The bill
+
+- /v1/usage today: calls 23 , errors 6 , fallbacks 7 , cost Rs 0.032
+- Average per answered question: Rs 0.0019 (my Day 1 target: under Rs 0.50)
+
+### One thing that went wrong today, and how I fixed it
+
+- Gemini gemini-3.8-flash failed; changed to gemini-3.5-flash, tested fallback and circuit breaker, then restored Gemini successfully.

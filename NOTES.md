@@ -297,9 +297,9 @@ The first download run was interrupted after 10 seconds. I restarted the fetcher
 
 | Message | tokens in |
 |---|---|
-| "Hi" (baseline: mostly my system prompt) | 173 |
-| The English sentence | 181 |
-| The same sentence in Tamil | 189 |
+| "Hi" (baseline: mostly my system prompt) |  173 |
+| The English sentence |  181 |
+| The same sentence in Tamil |  189 |
 
 - The Tamil message needs about 2 times the tokens of the English one.
 

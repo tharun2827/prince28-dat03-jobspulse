@@ -240,6 +240,7 @@ I was surprised because processing such a large dataset is very affordable.
 
 The first download run was interrupted after 10 seconds. I restarted the fetcher, and it downloaded the remaining 7 files while skipping 3 already downloaded files. On the third run, it skipped all 10 files. There were no partial files, and the resume test passed.
 
+
 ## D07 · Parser comparison
 
 <!-- parsers:start -->
@@ -321,3 +322,43 @@ The first download run was interrupted after 10 seconds. I restarted the fetcher
 ### One thing that went wrong today, and how I fixed it
 
 - Gemini gemini-3.8-flash failed; changed to gemini-3.5-flash, tested fallback and circuit breaker, then restored Gemini successfully.
+
+
+## D09 · Prompt versions compared
+
+<!-- prompts:start -->
+
+| Prompt version | Correct | Accuracy | Invalid replies | Avg tokens in |
+|---|---|---|---|---|
+| classify_v1 | 9/20 | 45% | 0 | 106 |
+| classify_v2 | 20/20 | 100% | 0 | 275 |
+| classify_v3 | 20/20 | 100% | 0 | 397 |
+| classify_v4 | 20/20 | 100% | 0 | 410 |
+
+<!-- prompts:end -->
+
+### Prompts and structured output
+
+- My best router prompt: classify_v4 with 20 / 20
+- What I changed in v4, and what happened to the score: Changed only the personal category definition to clearly identify questions requiring live or private information about a specific person. The score remained 20/20 (100%).
+- The question my best version still gets wrong (line, wanted, got), and why I think so: None. No questions were missed in the 20-question evaluation set.
+- A label in my test set that I changed after seeing the results (or "none"): none
+- Input tokens per question: v1 106 , best version 410 . Is the extra accuracy worth it? Yes. Input tokens increased, but accuracy improved from 45% to 100%, with all 20 questions classified correctly.
+
+### My contract (DocMeta)
+
+- Fields I kept from my project card: doc_kind, year, language, summary, topics, period, state, area, gender, age_group.
+- Fields I deleted, and why they make no sense per document: report, status_type, indicator, value. These are not included in the current DocMeta contract.
+- The field I tightened, and how: area, restricted to rural, urban, rural and urban, or other.
+
+### Extraction run
+
+- Prompt version: extract_v2 · documents: 9 ok, 0 repaired, 0 failed (of 9 parsed)
+- Not finished? Why, and how many are left: All 9 PDFs processed. 0 left.
+- Most common failure reason, and what I did about it: No failures.
+- A record that was valid but wrong (document, field, what it said, what is true): PLFS Annual Report 2022-23, area/gender/age_group: extracted lists were empty, although the report explicitly covers rural and urban areas, male and female categories, and multiple age groups (pages 6-7)
+- Cost at list price: Rs 0.4406 in total, Rs 0.0490 per document (including v1 and v2 runs).
+
+### One thing that went wrong today, and how I fixed it
+
+- The extraction missed area, gender and age-group details even though they were present in the reports. The extraction prompt needed improvement to capture these document dimensions.

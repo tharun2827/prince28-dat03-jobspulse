@@ -290,7 +290,7 @@ The first download run was interrupted after 10 seconds. I restarted the fetcher
 
 - Primary: gemini-3.5-flash (Gemini) · fallback: openai/gpt-oss-20b (Groq)
 - First question on my laptop: first words after 7.05 s, total 9.71 s, tokens in 197 / out 87, cost Rs 0.0000
-- Same question on my live URL (second, awake request): first words after ___ s. Day 1 target: under 1.5 s
+- Same question on my live URL (second, awake request): first words after 28.41 s. Day 1 target: under 1.5 s
 
 ### Tokens: English against Tamil
 
@@ -315,8 +315,8 @@ The first download run was interrupted after 10 seconds. I restarted the fetcher
 
 ### The bill
 
-- /v1/usage today: calls 23 , errors 6 , fallbacks 7 , cost Rs 0.032
-- Average per answered question: Rs 0.0019 (my Day 1 target: under Rs 0.50)
+- /v1/usage today: calls 25 , errors 6 , fallbacks 7 , cost Rs 0.032
+- Average per answered question: Rs 0.0017 (my Day 1 target: under Rs 0.50)
 
 ### One thing that went wrong today, and how I fixed it
 
